@@ -4,6 +4,7 @@ metadata:
   name: redis
   labels:
     app: redis
+    io.kompose.network/hobbit-core: hobbit-core
   annotations:
     "cni.projectcalico.org/ipv4pools": "[\"hobbit-core\"]"
 spec:
@@ -15,20 +16,26 @@ spec:
     metadata:
       labels:
         app: redis
+        io.kompose.network/hobbit-core: hobbit-core
       annotations:
         "cni.projectcalico.org/ipv4pools": "[\"hobbit-core\"]"
     spec:
+      securityContext:
+            runAsUser: 0
       containers:
         - name: redis
           image: redis:4.0.7
           imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 0
           volumeMounts:
-            - name: redis-server
-              mountPath: "/data"
-          command:
-            - redis-server
-            - "/data/redis.conf"
+          - mountPath: /config/redis-db
+            name: redis-server
       volumes:
         - name: redis-server
-          hostPath:
-            path: /config/redis-db
+          configMap:
+            name: redis-server
+            items:
+            - key: redis-config
+              path: redis.conf

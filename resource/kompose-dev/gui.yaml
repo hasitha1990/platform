@@ -1,30 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: keycloak
+  name: gui
   labels:
-    app: keycloak
+    app: gui
   annotations:
-    "cni.projectcalico.org/ipv4pools": "[\"hobbit\"]"
+    "cni.projectcalico.org/ipv4pools": "[\"hobbit-core\",\"hobbit\"]"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: keycloak
+      app: gui
   template:
     metadata:
       labels:
-        app: keycloak
+        app: gui
       annotations:
-        "cni.projectcalico.org/ipv4pools": "[\"hobbit\"]"
+        "cni.projectcalico.org/ipv4pools": "[\"hobbit-core\",\"hobbit\"]"
     spec:
       containers:
-        - name: keycloak
-          image: hobbitproject/hobbit-keycloak:latest
+        - name: gui
+          image: hobbitproject/hobbit-gui:dev
           imagePullPolicy: IfNotPresent
-          securityContext:
-            allowPrivilegeEscalation: false
-            runAsUser: 0
           env:
             - name: HOBBIT_RABBIT_HOST
               value: "rabbit"
@@ -40,28 +37,20 @@ spec:
               value: "9200"
           ports:
             - containerPort: 8080
-          volumeMounts:
-            - name: keycloakdata
-              mountPath: "/opt/jboss/keycloak/standalone/data/db"
-      volumes:
-        - name: keycloakdata
-          hostPath:
-            path: /config/keycloak
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: keycloak
+  name: gui
   labels:
-    app: keycloak
+    app: gui
   annotations:
-    "cni.projectcalico.org/ipv4pools": "[\"hobbit\"]"
+    "cni.projectcalico.org/ipv4pools": "[\"hobbit-core\",\"hobbit\"]"
 spec:
   ports:
-    - port: 8181
-      targetPort: 8080
+    - port: 8080
       protocol: TCP
   selector:
-    app: keycloak
+    app: gui

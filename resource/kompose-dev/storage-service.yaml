@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: storage-service
-          image: hobbitproject/hobbit-storage-service:latest
+          image: hobbitproject/hobbit-storage-service:dev
           imagePullPolicy: IfNotPresent
           env:
             - name: SPARQL_ENDPOINT_URL

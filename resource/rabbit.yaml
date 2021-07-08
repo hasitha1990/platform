@@ -4,6 +4,8 @@ metadata:
   name: rabbit
   labels:
     app: rabbit
+    io.kompose.network/hobbit: hobbit
+    io.kompose.network/hobbit-core: hobbit-core
   annotations:
     "cni.projectcalico.org/ipv4pools": "[\"hobbit\",\"hobbit-core\"]"
 spec:
@@ -15,6 +17,8 @@ spec:
     metadata:
       labels:
         app: rabbit
+        io.kompose.network/hobbit: hobbit
+        io.kompose.network/hobbit-core: hobbit-core
       annotations:
         "cni.projectcalico.org/ipv4pools": "[\"hobbit\",\"hobbit-core\"]"
     spec:

@@ -138,10 +138,13 @@ assign-to-ippool:
 	kubectl annotate namespace hobbit-service "cni.projectcalico.org/ipv4pools"='[“hobbit-service"]'
 
 start-platform:
-	kubectl apply -f ./resource/kompose
+	kubectl apply -k .
 
 start-dev-platform:
 	kubectl apply -f ./resource/kompose-dev
 
 start-elk-platform:
 	kubectl apply -f ./resource/kompose-elk
+
+start-redis-service:
+	kubectl apply -k .

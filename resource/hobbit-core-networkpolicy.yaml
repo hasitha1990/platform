@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  creationTimestamp: null
+  name: hobbit-core
+spec:
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          io.kompose.network/hobbit-core: hobbit-core
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              io.kompose.network/hobbit-core: hobbit-core
+  podSelector:
+    matchLabels:
+      io.kompose.network/hobbit-core: hobbit-core
+

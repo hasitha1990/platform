@@ -1,0 +1,12 @@
+configMapGenerator:
+- name: redis-server
+  files:
+    - config/redis-db/redis-config
+- name: vos-server
+  files:
+    - config/db/virtuoso-ini
+resources:
+- resource/redis.yaml
+- resource/vos.yaml
+- resource/keycloak.yaml
+- resource/rabbit.yaml

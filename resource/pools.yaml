@@ -1,4 +1,4 @@
-apiVersion: crd.projectcalico.org/v1
+apiVersion: projectcalico.org/v3
 kind: IPPool
 metadata:
   name: hobbit
@@ -11,7 +11,7 @@ spec:
 
 ---
 
-apiVersion: crd.projectcalico.org/v1
+apiVersion: projectcalico.org/v3
 kind: IPPool
 metadata:
   name: hobbit-core
@@ -24,7 +24,7 @@ spec:
 
 ---
 
-apiVersion: crd.projectcalico.org/v1
+apiVersion: projectcalico.org/v3
 kind: IPPool
 metadata:
   name: hobbit-services
